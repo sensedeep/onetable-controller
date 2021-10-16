@@ -13,8 +13,8 @@
     "homepage": "https://github.com/sensedeep/onetable-controller",
     "dependencies": {
         "aws-sdk": "^2.1009.0",
-        "dynamodb-onetable": "./onetable",
-        "onetable-migrate": "./onetable-migrate",
+        "dynamodb-onetable": "^1.9.3",
+        "onetable-migrate": "^1.1.1",
         "senselogs": "^1"
     },
     "devDependencies": {

@@ -20,12 +20,12 @@ build:
 	npm run build
 
 package:
-	echo sls package -s $(PROFILE) -v
-	sls package -s $(PROFILE) -v
+	echo sls package -s $(PROFILE) --verbose
+	sls package -s $(PROFILE) --verbose
 
 update:
-	echo sls deploy -s $(PROFILE) -f $(CONTROLLER) -v
-	sls deploy -s $(PROFILE) -f $(CONTROLLER) -v
+	echo sls deploy -s $(PROFILE) -f $(CONTROLLER) --verbose
+	sls deploy -s $(PROFILE) -f $(CONTROLLER) --verbose
 
 publish:
 	echo
@@ -33,7 +33,7 @@ publish:
 		echo ; \
 		/bin/echo -n "CONFIRM: about to publish \"$(PROFILE)\": " ; read x ; \
 	fi
-	sls deploy -s $(PROFILE) -v
+	sls deploy -s $(PROFILE) --verbose
 
 promote: build publish
 
