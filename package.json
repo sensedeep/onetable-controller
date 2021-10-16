@@ -30,8 +30,8 @@
         "serverless-offline": "^8.2.0"
     },
     "scripts": {
-        "test": "jest",
-        "test-cov": "jest --coverage",
+        "test": "echo jest",
+        "test-cov": "echo jest --coverage",
         "prepare": "npm run build",
         "lint": "eslint src",
         "build": "esbuild --platform=node src/controller.js --bundle --outdir=.build",
