@@ -1,0 +1,62 @@
+#
+#   Deploy OneTable Migration Controller
+#
+service: onetable
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  stage: "${opt:stage, 'dev'}"
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+
+provider:
+  name: aws
+  lambdaHashingVersion: 20201221
+  versionFunctions: false
+  stage: "${self:custom.stage}"
+  runtime: nodejs14.x
+  logRetentionInDays: 7
+  timeout: 45
+  memorySize: 128
+
+  environment:
+    PROFILE: ${self:custom.stage}
+    LOG_FILTER: fatal, error, metrics, info, warn
+    LOG_OVERRIDE: ""
+    LOG_SAMPLE: ""
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:Query"
+            - "dynamodb:Scan"
+            - "dynamodb:GetItem"
+            - "dynamodb:PutItem"
+            - "dynamodb:UpdateItem"
+            - "dynamodb:DeleteItem"
+            - "dynamodb:DescribeTable"
+          Resource: "*"
+
+functions:
+  invoke:
+    handler: src/controller.handler
+    timeout: 500
+
+package:
+  patterns:
+    - src/**.js
+
+resources:
+  Outputs:
+    OnetableController:
+      Export:
+        Name: ControllerArn
+      Value:
+        "Fn::GetAtt": [ InvokeLambdaFunction, Arn ]
