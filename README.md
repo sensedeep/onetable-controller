@@ -1,11 +1,8 @@
+![OneTable](https://www.sensedeep.com/images/ring-short.png?renew)
+
+*One Table to Rule Them All*
+
 # DynamoDB OneTable Migration Controller
-
-One table to rule them all.
-
-[![npm](https://img.shields.io/npm/v/onetable-controller.svg)](https://www.npmjs.com/package/onetable-controller)
-[![npm](https://img.shields.io/npm/l/onetable-controller.svg)](https://www.npmjs.com/package/onetable-controller)
-
-![OneTable](https://www.sensedeep.com/images/ring.png)
 
 This sample repository provides a sample hosting of the [DynamoDB OneTable Migration Library](https://www.npmjs.com/package/onetable-migrate).
 
