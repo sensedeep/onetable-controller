@@ -6,7 +6,7 @@ import SenseLogs from 'senselogs'
 import {Migrate} from 'onetable-migrate'
 
 /*
-    Own migrations. This sample assumes
+    Index of all migrations
 */
 import Migrations from './migrations/index'
 
@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
 
     log.info(`Migrate command ${action}`, {event, config})
 
-    //  The event.config provides the table name
+    //  The event.config.name provides the table name
 
     let migrations = Migrations[config.name]
 
@@ -34,10 +34,12 @@ exports.handler = async (event, context) => {
         throw new Error(`No migrations configured for table`)
     }
     config.client = client
+    config.senselogs = log
 
     let migrate = new Migrate(config, {migrations})
-    let data
+    await migrate.init()
 
+    let data
     switch (action) {
     case 'apply':
         let {direction, version} = args

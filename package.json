@@ -1,7 +1,7 @@
 {
     "name": "onetable-controller",
     "description": "OneTable Migration Controller for use with SenseDeep",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -12,12 +12,12 @@
     },
     "homepage": "https://github.com/sensedeep/onetable-controller",
     "dependencies": {
-        "aws-sdk": "^2.1009.0",
-        "dynamodb-onetable": "^1.9.3",
-        "onetable-migrate": "^1.1.1",
+        "dynamodb-onetable": "^2.0",
+        "onetable-migrate": "^1.1.2",
         "senselogs": "^1"
     },
     "devDependencies": {
+        "aws-sdk": "^2.1009.0",
         "@types/jest": "^27.0.2",
         "@types/node": "^16.11.0",
         "dotenv": "^10.0.0",
