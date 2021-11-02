@@ -4,11 +4,14 @@
 
 # DynamoDB OneTable Migration Controller
 
-This sample repository provides a sample hosting of the [DynamoDB OneTable Migration Library](https://www.npmjs.com/package/onetable-migrate).
+This repository provides hosting of the [OneTable Migration Library](https://www.npmjs.com/package/onetable-migrate) for DynamoDB.
 
-Use the [OneTable CLI](https://github.com/sensedeep/onetable-cli) may be used to control migrations which are hosted and executed by this service.
+You should host the OneTable Migrate library (via this repo) so that it executes in the same AWS region and availablity zone as your DynamoDB instance. This will accelerate migrations by minimizing the I/O transfer time.
 
 Use the [SenseDeep DynamoDB Developer Studio](https://www.sensedeep.com) for a graphical controller for your migrations which provides a complete DynamoDB developer environment with a powerful data browser, single-table designer, provisioning planner, table metrics and control of database migrations.
+
+Use the [OneTable CLI](https://github.com/sensedeep/onetable-cli) for command line control of migrations.
+
 
 ## OneTable Migration Features
 
@@ -31,6 +34,10 @@ Use the [SenseDeep DynamoDB Developer Studio](https://www.sensedeep.com) for a g
 git clone git@github.com:sensedeep/onetable-controller.git
 ```
 
+## Modify
+
+Modify to add migrations scripts under the `src/migrations` directory. See below for more details.
+
 ## Deploy
 
 To promote to the cloud defined by your AWS_PROFILE and AWS_REGION.
@@ -39,6 +46,46 @@ To promote to the cloud defined by your AWS_PROFILE and AWS_REGION.
 ```shell
 make promote
 ```
+
+## Creating Migrations
+
+The `src/migrations` directory contains sub-directories for each DynamoDB table you wish to manage. There is one sample called `TestTable`. Rename this to the name of your table and copy this directory for other tables you may wish to manage.
+
+When creating migrations, you need to modify the following files:
+
+* index.js
+* latest.js
+* X.Y.Z.js
+* schema/schema.X.Y.Z
+
+Migrations are versioned using [SemVer](https://semver.org/) and reside in the top of the per-table directory. There is a 0.0.1.js sample to get you started. This contains:
+
+```javascript
+import schema from './schemas/schema.0.0.1.js'
+
+export default {
+    version: '0.0.1',
+    description: 'Test migration 0.0.1',
+    schema,
+
+    async up(db, migrate) {
+        console.log(`Up ${this.description}`)
+    },
+
+    async down(db, migrate) {
+        console.log(`Down ${this.description}`)
+    }
+}
+```
+
+The `db` property is a OneTable Table instance. You can use it to interact with the DynamoDB table. See [OneTable Migrate](https://github.com/sensedeep/onetable-migrate) for samples.
+
+If you add a new migration, say 0.0.1.js, add an entry to the list of migrations in `index.js`.
+
+Each migration should have its own versioned schema that defines the data entities at that migration version level. The schemas live by default in the ./schemas directory.
+
+The `latest.js` migration is a special dev migration that is used by the [SenseDeep](https://www.sensedeep.com) and the [OneTable CLI](https://github.com/sensedeep/onetable-cli) to "reset" the database to the latest schema and discard all prior data. It is useful when developing and you need to reset the database to a good known state.
+
 
 ## Directories and Files
 
@@ -58,14 +105,11 @@ This directory contains the sample migrations for a DynamoDB `TestTable`. It has
 
 This directory also contains a `schemas` directory for the corresponding OneTable schemas for each migration version.
 
-
 See the [OneTable Migration documentation](https://www.npmjs.com/package/onetable-migration) for details of how to use the migration library.
 
-### Background
 
-If you have large databases or complex migrations, you should host the OneTable Migrate library via AWS Lambda so that it executes in the same AWS region and availablity zone as your DynamoDB instance. This will accelerate migrations by minimizing the I/O transfer time.
 
-This sample is a self-contained sample hosting of the OneTable Migration library for executing migrations in the cloud. It uses the serverless framework to create a Lambda proxy that responds to CLI and SenseDeep migration commands.
+### OneTable CLI
 
 The OneTable CLI can control your migration lambda when operating in proxy mode by setting the `arn` of your migration Lambda.
 
