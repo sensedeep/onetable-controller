@@ -3,7 +3,7 @@
 #
 
 AWS_PROFILE ?=
-AWS_REGION ?= ap-southeast-2
+AWS_REGION  ?= ap-southeast-2
 PROFILE     ?= qa
 CONTROLLER  ?= controller
 

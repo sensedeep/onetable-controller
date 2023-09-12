@@ -14,8 +14,8 @@
     "dependencies": {
         "@aws-sdk/client-dynamodb": "^3.410.0",
         "@aws-sdk/util-dynamodb": "^3.410.0",
-        "dynamodb-onetable": "^2",
-        "onetable-migrate": "^1",
+        "dynamodb-onetable": "^2.7.0",
+        "onetable-migrate": "^1.2.0",
         "senselogs": "^1"
     },
     "devDependencies": {
@@ -38,9 +38,5 @@
         "destroy": "sls remove",
         "start": "sls offline --httpPort 5008 --lambdaPort 5009 --noAuth -s dev",
         "debug": "export XSLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline  --httpPort 5008 --lambdaPort 5009 --noAuth -s dev"
-    },
-    "__engines": {
-        "node": ">=16.0.0",
-        "npm": ">=7.0.0"
     }
 }
