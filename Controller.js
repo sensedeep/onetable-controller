@@ -1,26 +1,16 @@
 /*
     OneTable Migration controller
 */
-console.log(`@@ TOP 42`)
-// import DynamoDB from 'aws-sdk/clients/dynamodb'
 import {DynamoDBClient} from '@aws-sdk/client-dynamodb'
 import SenseLogs from 'senselogs'
 import {Migrate} from 'onetable-migrate'
-
-// import {Migrate} from './migrate/src/index.js'
-
 import {Tables} from './tables/index.js'
-
-const profile = 'prod'
 
 /*
     One-time global config
 */
+const profile = 'prod'
 const client = new DynamoDBClient()
-
-// AWS SDK V2
-// let client = new DynamoDB.DocumentClient()
-
 let log = new SenseLogs()
 
 /*
@@ -28,8 +18,6 @@ let log = new SenseLogs()
 */
 exports.handler = async (event) => {
     let {cmd, args, config, dry} = event
-
-    log.info(`Migrate command ${cmd}`, {event, config})
 
     let module = Tables[config.name]
     if (!module) {
@@ -82,7 +70,6 @@ exports.handler = async (event) => {
     default:
         throw new Error(`Unknown migration action ${action}`)
     }
-    log.info(`@@ RESULT ${cmd}`, {data})
     return {
         body: data,
         statusCode: 200,
