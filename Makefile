@@ -3,6 +3,7 @@
 #
 
 AWS_PROFILE ?=
+AWS_REGION ?= ap-southeast-2
 PROFILE     ?= qa
 CONTROLLER  ?= controller
 
@@ -33,7 +34,7 @@ publish:
 		echo ; \
 		/bin/echo -n "CONFIRM: about to publish \"$(PROFILE)\": " ; read x ; \
 	fi
-	sls deploy -s $(PROFILE) --verbose
+	sls deploy -s $(PROFILE) --verbose -r $(AWS_REGION)
 
 promote: build publish
 

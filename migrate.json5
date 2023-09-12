@@ -1,0 +1,10 @@
+{
+    /*
+        OneTable CLI configuration
+     */
+    onetable: {
+        name: 'TestTable',
+        partial: true,
+    },
+    dir: './tables/TestTable/migrations'
+}

@@ -20,10 +20,14 @@ const Schema = {
             activity:       { type: Date },
             email:          { type: String, required: true },
             first:          { type: String },
-            id:             { type: String, required: true, uuid: 'ulid' },
+            id:             { type: String, required: true, generate: 'ulid' },
             last:           { type: String },
         },
-    }
+    },
+    params: {
+        isoDates: true,
+        timestamps: true,
+    },
 }
 
 export default Schema

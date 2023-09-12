@@ -1,28 +1,29 @@
-#
-#   Deploy OneTable Migration Controller
-#
 service: onetable
 
 plugins:
   - serverless-esbuild
-  - serverless-offline
+
+package:
+  patterns: 
+    - './tables/**'
+  individually: false
 
 custom:
   stage: "${opt:stage, 'dev'}"
   esbuild:
     bundle: true
     minify: false
-    sourcemap: true
+    treeShaking: true
 
 provider:
   name: aws
+  stage: "${self:custom.stage}"
+  runtime: nodejs16.x
   lambdaHashingVersion: 20201221
   versionFunctions: false
-  stage: "${self:custom.stage}"
-  runtime: nodejs14.x
   logRetentionInDays: 7
   timeout: 45
-  memorySize: 128
+  memorySize: 1024
 
   environment:
     PROFILE: ${self:custom.stage}
@@ -46,12 +47,8 @@ provider:
 
 functions:
   invoke:
-    handler: src/controller.handler
+    handler: Controller.handler
     timeout: 500
-
-package:
-  patterns:
-    - src/**.js
 
 resources:
   Outputs:

@@ -6,4 +6,5 @@ coverage
 .build/
 .serverless/
 /onetable
-/onetable-migrate
+/migrate
+*.bak
