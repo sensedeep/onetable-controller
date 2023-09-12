@@ -8,3 +8,4 @@ coverage
 /onetable
 /migrate
 *.bak
+.cdrc
