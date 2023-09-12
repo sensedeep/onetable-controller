@@ -1,7 +1,7 @@
 {
     "name": "onetable-controller",
     "description": "OneTable Migration Controller for use with SenseDeep",
-    "version": "0.9.1",
+    "version": "1.0.0",
     "license": "MIT",
     "repository": {
         "type": "git",
